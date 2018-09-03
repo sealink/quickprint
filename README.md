@@ -3,21 +3,26 @@
 [![Build Status](https://travis-ci.org/sealink/quickprint.svg?branch=master)](https://travis-ci.org/sealink/quickprint)
 
 Print Service is designed to be run on-premise and provides a bridge for web connected applcations
-to allow printing to physical printers.
+to print to physical printers.
+
+#### Building
+
+```
+./gradlew build
+```
 
 #### Running
 
-You can either run as a standlone web server
+For general development you are best to start the server via gradle
 ```
 QUICK_PRINT_API_KEY=123 ./gradlew bootrun
 ```
 
-Or you can build the WAR file and deploy into an application server such as tomcat
-```
- ./gradlew build
-```
+The build will also produce both a WAR and standalone executable JAR file.
 
-The JAR file can also be run as a server directly
+The WAR can be deployed to an application server such as TomCat, the JAR file can be started with 
+the following command.
+
 ```
 java -DQUICK_PRINT_API_KEY=123  -jar build/libs/quickprint-{version}.jar
 ```
