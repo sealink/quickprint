@@ -13,9 +13,11 @@ class ApplicationSecurity : WebSecurityConfigurerAdapter() {
     private lateinit var env : Environment
 
     override fun configure(http: HttpSecurity) {
+        val protectedRoutes = arrayOf("/print-tickets", "/printers")
+
         http.csrf().disable()
                 .requestMatchers()
-                    .antMatchers("/print-tickets", "/printers")
+                    .antMatchers(*protectedRoutes)
                     .and()
                 .addFilterBefore(AuthenticationFilter(env.getProperty("secrets.apiKey") ?: ""), BasicAuthenticationFilter::class.java)
     }
