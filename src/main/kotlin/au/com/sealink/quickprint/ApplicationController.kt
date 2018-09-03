@@ -19,7 +19,7 @@ class ApplicationController(private val repository: PrinterRepository) {
     fun index() = rb.getString("version")
 
     @GetMapping("/printers")
-    fun printers()=  repository.findAll().map { it.name }
+    fun printers()= repository.findAll().map { it.name }
 
     @PostMapping("/print-tickets")
     fun printTickets(@RequestBody request: PrintTicket) {
