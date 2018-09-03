@@ -17,6 +17,11 @@ Or you can build the WAR file and deploy into an application server such as tomc
  ./gradlew build
 ```
 
+The JAR file can also be run as a server directly
+```
+java -DQUICK_PRINT_API_KEY=123  -jar build/libs/quickprint-{version}.jar
+```
+
 #### Deployment
 
 Deployment is handled via gradle and travis if you follow the correct git conventions.

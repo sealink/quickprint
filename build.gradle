@@ -78,7 +78,10 @@ repositories {
     mavenCentral()
 }
 
-bootJar {}
+bootJar {
+    launchScript()
+}
+
 bootWar {
     excludeDevtools = false
 }
