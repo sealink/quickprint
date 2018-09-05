@@ -1,0 +1,2 @@
+secrets:
+  apiKey: ${QUICK_PRINT_API_KEY}
