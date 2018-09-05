@@ -19,6 +19,6 @@ class ApplicationSecurity : WebSecurityConfigurerAdapter() {
                 .requestMatchers()
                     .antMatchers(*protectedRoutes)
                     .and()
-                .addFilterBefore(AuthenticationFilter(env.getProperty("secrets.apiKey") ?: ""), BasicAuthenticationFilter::class.java)
+                .addFilterBefore(AuthenticationFilter(env.getProperty("secrets.apiKey")!!), BasicAuthenticationFilter::class.java)
     }
 }
