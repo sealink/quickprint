@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse
 
 class AuthenticationFilter(private val apiKey: String) : OncePerRequestFilter() {
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain)  {
-        val apiKey = request.getHeader("api_key")
+        val apiKey = request.getHeader("x-api-key")
         if (apiKey != this.apiKey) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid API Token")
         }
