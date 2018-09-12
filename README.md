@@ -27,6 +27,23 @@ the following command.
 java -DQUICK_PRINT_API_KEY=123  -jar build/libs/quickprint-{version}.jar
 ```
 
+#### Enabling SSL 
+
+You can use the following instructions to create a self-signed certificate and instruct
+the server to use it.
+
+* Create the certificate
+```
+ keytool -genkey -alias tomcat \
+ -storetype PKCS12 -keyalg RSA -keysize 2048 \
+ -keystore keystore.p12 -validity 3650
+```
+* The following environment variables will also need to be configured
+```
+KEY_STORE_PASSWORD = "password as configured in the previous step"
+spring.profiles.active = "ssl"
+```
+
 #### Deployment
 
 Deployment is handled via gradle and travis if you follow the correct git conventions.

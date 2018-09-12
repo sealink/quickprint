@@ -2,6 +2,9 @@
 *.apk
 *.ap_
 
+# Security
+*.p12
+
 # Files for the ART/Dalvik VM
 *.dex
 
