@@ -8,7 +8,6 @@ import kotlinx.coroutines.experimental.async
 import org.springframework.web.bind.annotation.*
 import java.util.ResourceBundle
 
-@CrossOrigin
 @RestController
 class ApplicationController(private val repository: PrinterRepository) {
     private val rb = ResourceBundle.getBundle("version")
