@@ -9,7 +9,7 @@ data class Ticket(
     @JsonProperty("y") val y: Double,
     @JsonProperty("value") val value: String,
     @JsonProperty("key") val key: String,
-    @JsonProperty("font_size") val fontSize: Int,
+    @JsonProperty("font_size") val fontSize: Double,
     @JsonProperty("italic") val isItalic: Boolean,
     @JsonProperty("bold") val isBold: Boolean,
     @JsonProperty("orientation") val orientation: String
@@ -17,7 +17,7 @@ data class Ticket(
 
 fun Ticket.toTicketElement() : TicketElement {
     val element = TicketElement()
-    element.fontSize = this.fontSize
+    element.fontSize = this.fontSize.toInt()
     element.isBold = this.isBold
     element.isItalic = this.isItalic
     element.value = this.value
