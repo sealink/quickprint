@@ -5,12 +5,10 @@ import au.com.sealink.quickprint.core.PrinterRepository
 import au.com.sealink.quickprint.requests.PrintTicket
 import au.com.sealink.quickprint.requests.toTicketElement
 import kotlinx.coroutines.experimental.async
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.ResourceBundle
 
+@CrossOrigin
 @RestController
 class ApplicationController(private val repository: PrinterRepository) {
     private val rb = ResourceBundle.getBundle("version")
