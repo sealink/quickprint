@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <springProfile name="!production">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    </springProfile>
+
+    <springProfile name="production">
+        <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter">
+            <level value="DEBUG" />
+        </logger>
+
+        <appender name="LE"
+                  class="com.rapid7.logback.LogentriesAppender">
+            <Token>${LOG_ENTRIES_TOKEN}</Token>
+            <Region>${LOG_ENTRIES_REGION}</Region>
+            <Debug>False</Debug>
+            <Ssl>False</Ssl>
+            <facility>USER</facility>
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <root level="info">
+            <appender-ref ref="LE" />
+        </root>
+    </springProfile>
+</configuration>
