@@ -1,5 +1,9 @@
 # QuickPrint
 
+## 1.0.2 Unreleased
+
+* [TT-4561] - Fix issue printing duplicate tickets
+
 ## 1.0.1
 
 * [TT-4557] - Enable CORS support
