@@ -3,6 +3,7 @@ package au.com.sealink.quickprint
 import au.com.sealink.printing.ticket_printer.*
 import au.com.sealink.quickprint.core.PrinterRepository
 import au.com.sealink.quickprint.requests.PrintTicket
+import au.com.sealink.quickprint.requests.Response
 import au.com.sealink.quickprint.requests.toTicketElement
 import kotlinx.coroutines.experimental.async
 import org.springframework.web.bind.annotation.*
@@ -19,7 +20,7 @@ class ApplicationController(private val repository: PrinterRepository) {
     fun printers()= repository.findAll().map { it.name }
 
     @PostMapping("/print-tickets")
-    fun printTickets(@RequestBody request: PrintTicket) {
+    fun printTickets(@RequestBody request: PrintTicket) : Response {
         val printer = repository.requestPrinter(request.printerName)
         val settings = TicketPageSettings(request.pageFormat.width,
                 request.pageFormat.height,
@@ -38,5 +39,6 @@ class ApplicationController(private val repository: PrinterRepository) {
                 printer.printTickets(tickets)
             }
         }
+        return Response()
     }
 }
