@@ -44,6 +44,18 @@ KEY_STORE_PASSWORD = "password as configured in the previous step"
 spring.profiles.active = "ssl"
 ```
 
+If you have issued pem (may have .crt extension) files and private key you can create a Keystore using the following method.
+
+* First combine the pem files together
+```
+cat *.crt > combined.pem
+```
+
+* Create the keystore using these combined public keys with your private key
+```
+openssl pkcs12 -export -inkey [private.key] -in combined.pem -name tomcat -out keystore.p12
+```
+
 #### Deployment
 
 Deployment is handled via gradle and travis if you follow the correct git conventions.
