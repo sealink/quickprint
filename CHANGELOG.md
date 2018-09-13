@@ -1,6 +1,6 @@
 # QuickPrint
 
-## 1.0.2 Unreleased
+## 1.0.2
 
 * [TT-4561] - Fix issue printing duplicate tickets
 
