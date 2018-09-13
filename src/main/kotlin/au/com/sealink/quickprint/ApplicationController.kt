@@ -34,10 +34,8 @@ class ApplicationController(private val repository: PrinterRepository) {
             ticket
         }
 
-        tickets.forEach {
-            async {
-                printer.printTickets(tickets)
-            }
+        async {
+            printer.printTickets(tickets)
         }
         return Response()
     }
