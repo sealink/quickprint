@@ -1,6 +1,6 @@
 # QuickPrint
 
-## 1.0.1 Unreleased
+## 1.0.1
 
 * [TT-4557] - Enable CORS support
 * [TT-4558] - Enable reading of double font sizes
