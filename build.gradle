@@ -198,9 +198,11 @@ bintray {
     publish = true
 }
 
+ecrRepository = 'https://120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
+
 docker {
     registryCredentials {
-        url = 'https://120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
+        url = ecrRepository
     }
 }
 
@@ -238,17 +240,18 @@ createDockerfile.dependsOn syncWebAppArchive
 
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
+ecrImageTag = "${ecrRepository}/quickprint:{$war.version}"
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
-    tag = "120983864185.dkr.ecr.ap-southeast-2.amazonaws.com/quickprint:$war.version"
+    tag = ecrImageTag
 }
 
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 
 task pushImage(type: DockerPushImage) {
     dependsOn buildImage
-    conventionMapping.imageName = { buildImage.getTag() }
+    conventionMapping.imageName = { buildImage.tag }
 }
 
 task publishImage() {
@@ -260,7 +263,7 @@ task createDockerrun() {
     file('Dockerrun.aws.json').text = """{
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "120983864185.dkr.ecr.ap-southeast-2.amazonaws.com/quickprint:$war.version",
+    "Name": "${ecrImageTag}",
     "Update": "true"
   },
   "Ports": [
