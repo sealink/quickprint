@@ -1,5 +1,9 @@
 # QuickPrint
 
+## Unreleased
+
+* [TT-4522] - Add ability to generate docker image and publish to ECR
+
 ## 1.0.2
 
 * [TT-4561] - Fix issue printing duplicate tickets
