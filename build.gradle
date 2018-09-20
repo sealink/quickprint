@@ -20,6 +20,7 @@ plugins {
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.8.2'
     id 'com.bmuschko.docker-remote-api' version '3.6.1'
+    id "com.patdouble.awsecr" version "0.4.0"
 }
 
 apply plugin: 'kotlin'
@@ -197,6 +198,12 @@ bintray {
     publish = true
 }
 
+docker {
+    registryCredentials {
+        url = 'https://120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
+    }
+}
+
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 task createDockerfile(type: Dockerfile) {
@@ -234,5 +241,17 @@ import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
-    tag = "sealink/quickprint:$war.version"
+    tag = "120983864185.dkr.ecr.ap-southeast-2.amazonaws.com/quickprint:$war.version"
+}
+
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+
+task pushImage(type: DockerPushImage) {
+    dependsOn buildImage
+    conventionMapping.imageName = { buildImage.getTag() }
+}
+
+task publishImage() {
+    dependsOn pushImage
+    dependsOn bintrayUpload
 }

@@ -16,7 +16,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 deploy:
   provider: script
-  script: "./gradlew bintrayUpload"
+  script: "./gradlew publishImage"
   skip_cleanup: true
   on:
     all_branches: true
