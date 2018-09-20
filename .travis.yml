@@ -18,9 +18,22 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
 deploy:
-  provider: script
-  script: "./gradlew publishImage"
+  provider: elasticbeanstalk
+  region: "ap-southeast-1"
+  app: "QuickPrint"
+  env: "quickprint-pdf"
+  bucket_name: "quickprint-application-versions"
+  before_deploy: "./gradlew publishImage"
   skip_cleanup: true
+  zip_file: "build/distributions/eb.zip"
   on:
     all_branches: true
     tags: true
+
+#deploy:
+#  provider: script
+#  script: "./gradlew publishImage"
+#  skip_cleanup: true
+#  on:
+#    all_branches: true
+#    tags: true

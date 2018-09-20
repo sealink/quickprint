@@ -255,3 +255,42 @@ task publishImage() {
     dependsOn pushImage
     dependsOn bintrayUpload
 }
+
+task createDockerrun() {
+    file('Dockerrun.aws.json').text = """{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "120983864185.dkr.ecr.ap-southeast-2.amazonaws.com/quickprint:$war.version",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8080"
+    }
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": "/mnt/nfs/PDF",
+      "ContainerDirectory": "/root/PDF"
+    }
+  ],
+  "Logging": "/var/log/nginx"
+}
+"""
+}
+
+task copyEBDirForArchiving(type: Copy) {
+    dependsOn createDockerrun
+    from(".") {
+        include ".ebextensions/**"
+    }
+
+    from "Dockerrun.aws.json"
+    into "${buildDir}/toArchive"
+}
+
+task createEBArchive(type: Zip) {
+    dependsOn copyEBDirForArchiving
+    from "${buildDir}/toArchive"
+    archiveName "eb.zip"
+}
