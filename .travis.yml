@@ -19,16 +19,22 @@ cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
+before_deploy:
+  - "export ELASTIC_BEANSTALK_LABEL=$VERSION_TAG"
 deploy:
-  provider: elasticbeanstalk
-  region: "ap-southeast-2"
-  app: "QuickPrint"
-  env: "quickprint-pdf"
-  bucket_name: "quickprint-eb-deployments"
-  before_deploy: "export ELASTIC_BEANSTALK_LABEL=$VERSION_TAG"
-  deploy: "./gradlew publishImage"
-  skip_cleanup: true
-  zip_file: "build/distributions/eb.zip"
-  on:
-    all_branches: true
-    tags: true
+  - provider: script
+    script: "./gradlew publishImage"
+    skip_cleanup: true
+    on:
+      all_branches: true
+      tags: true
+  - provider: elasticbeanstalk
+    region: "ap-southeast-2"
+    app: "QuickPrint"
+    env: "quickprint-pdf"
+    bucket_name: "quickprint-eb-deployments"
+    skip_cleanup: true
+    zip_file: "build/distributions/eb.zip"
+    on:
+      all_branches: true
+      tags: true
