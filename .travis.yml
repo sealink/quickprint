@@ -7,6 +7,8 @@ jdk:
 - oraclejdk8
 script:
 - "./gradlew versionDisplay"
+- "./gradlew versionFile"
+- "export $(cat build/version.properties | xargs)"
 - "./gradlew build createEBArchive"
 after_success:
 - "./gradlew jacocoTestReport coveralls"
@@ -19,21 +21,15 @@ cache:
   - "$HOME/.gradle/wrapper/"
 deploy:
   provider: elasticbeanstalk
-  region: "ap-southeast-1"
+  region: "ap-southeast-2"
   app: "QuickPrint"
   env: "quickprint-pdf"
   bucket_name: "quickprint-application-versions"
-  before_deploy: "./gradlew publishImage"
+  before_deploy:
+    - "export ELASTIC_BEANSTALK_LABEL=$VERSION_TAG"
+    - "./gradlew publishImage"
   skip_cleanup: true
   zip_file: "build/distributions/eb.zip"
   on:
     all_branches: true
     tags: true
-
-#deploy:
-#  provider: script
-#  script: "./gradlew publishImage"
-#  skip_cleanup: true
-#  on:
-#    all_branches: true
-#    tags: true
