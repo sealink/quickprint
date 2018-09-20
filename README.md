@@ -27,6 +27,19 @@ the following command.
 java -DQUICK_PRINT_API_KEY=123  -jar build/libs/quickprint-{version}.jar
 ```
 
+#### Running (Docker)
+
+Firstly build the docker image
+```
+./gradlew buildImage
+```
+
+This should output an image id which you can than use to run the docker image
+```
+ docker run -eAPI_KEY=123 -p8080:8080 -v/absolute/path/to/pdf/on/host:/root/PDF {imageId}
+```
+
+
 #### Enabling SSL 
 
 You can use the following instructions to create a self-signed certificate and instruct
