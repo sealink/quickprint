@@ -25,9 +25,8 @@ deploy:
   app: "QuickPrint"
   env: "quickprint-pdf"
   bucket_name: "quickprint-eb-deployments"
-  before_deploy:
-    - "export ELASTIC_BEANSTALK_LABEL=$VERSION_TAG"
-    - "./gradlew publishImage"
+  before_deploy: "export ELASTIC_BEANSTALK_LABEL=$VERSION_TAG"
+  deploy: "./gradlew publishImage"
   skip_cleanup: true
   zip_file: "build/distributions/eb.zip"
   on:
