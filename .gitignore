@@ -15,6 +15,7 @@
 bin/
 gen/
 out/
+Dockerrun.aws.json
 
 # Gradle files
 .gradle/
