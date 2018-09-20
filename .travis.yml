@@ -7,7 +7,7 @@ jdk:
 - oraclejdk8
 script:
 - "./gradlew versionDisplay"
-- "./gradlew build"
+- "./gradlew build createEBArchive"
 after_success:
 - "./gradlew jacocoTestReport coveralls"
 before_cache:
@@ -23,7 +23,7 @@ deploy:
   app: "QuickPrint"
   env: "quickprint-pdf"
   bucket_name: "quickprint-application-versions"
-  before_deploy: "./gradlew publishImage createEBArchive"
+  before_deploy: "./gradlew publishImage"
   skip_cleanup: true
   zip_file: "build/distributions/eb.zip"
   on:
