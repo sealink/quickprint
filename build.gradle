@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.2.61'
+		kotlinVersion = '1.2.70'
 		springBootVersion = '2.0.4.RELEASE'
 	}
 	repositories {
@@ -19,6 +19,8 @@ plugins {
     id 'net.nemerosa.versioning' version '2.7.1'
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.8.2'
+    id 'com.bmuschko.docker-remote-api' version '3.6.1'
+    id "com.patdouble.awsecr" version "0.4.0"
 }
 
 apply plugin: 'kotlin'
@@ -74,6 +76,7 @@ else {
 }
 
 repositories {
+    jcenter()
     maven { url "https://dl.bintray.com/sealink/maven" }
     mavenCentral()
 }
@@ -193,4 +196,104 @@ bintray {
         }
     }
     publish = true
+}
+
+def ecrRepository = 'https://120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
+
+docker {
+    registryCredentials {
+        url = ecrRepository
+    }
+}
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/docker/Dockerfile')
+    from 'openjdk:8-jdk'
+    label(
+            'maintainer': 'john.mortlock@sealink.com.au'
+    )
+    environmentVariable 'PRINTER_NAME', 'cups-pdf'
+    volume '/root/PDF'
+    runCommand 'apt-get update && apt-get -y install cups-pdf cups-bsd && apt-get clean'
+    copyFile 'cups-pdf.conf', '/etc/cups/cups-pdf.conf'
+    copyFile war.archiveName, '/app/quickprint.war'
+    copyFile 'entrypoint.sh', '/app/entrypoint.sh'
+    exposePort 8080
+    entryPoint '/app/entrypoint.sh'
+}
+
+task syncWebAppArchive(type: Sync) {
+    dependsOn assemble
+    from war.archivePath
+    into createDockerfile.destFile.parentFile
+
+    from project.file('docker/entrypoint.sh')
+    into createDockerfile.destFile.parentFile
+
+    from project.file('docker/cups-pdf.conf')
+    into createDockerfile.destFile.parentFile
+}
+
+createDockerfile.dependsOn syncWebAppArchive
+
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+def ecrImageTag = "${ecrRepository}/quickprint:{$war.version}"
+task buildImage(type: DockerBuildImage) {
+    dependsOn createDockerfile
+    inputDir = createDockerfile.destFile.parentFile
+    tag = ecrImageTag
+}
+
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+
+task pushImage(type: DockerPushImage) {
+    dependsOn buildImage
+    conventionMapping.imageName = { buildImage.tag }
+}
+
+task publishImage() {
+    dependsOn pushImage
+    dependsOn bintrayUpload
+}
+
+task createDockerrun() {
+    file('Dockerrun.aws.json').text = """{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "${ecrImageTag}",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8080"
+    }
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": "/mnt/nfs/PDF",
+      "ContainerDirectory": "/root/PDF"
+    }
+  ],
+  "Logging": "/var/log/nginx"
+}
+"""
+}
+
+task copyEBDirForArchiving(type: Copy) {
+    dependsOn createDockerrun
+    from(".") {
+        include ".ebextensions/**"
+    }
+
+    from "Dockerrun.aws.json"
+    into "${buildDir}/toArchive"
+}
+
+task createEBArchive(type: Zip) {
+    dependsOn copyEBDirForArchiving
+    from "${buildDir}/toArchive"
+    archiveName "eb.zip"
 }
