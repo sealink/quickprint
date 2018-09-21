@@ -240,7 +240,7 @@ createDockerfile.dependsOn syncWebAppArchive
 
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
-def ecrImageTag = "${ecrRepository}/quickprint:{$war.version}"
+def ecrImageTag = "${ecrRepository}/quickprint:$war.version"
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
