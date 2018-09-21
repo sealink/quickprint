@@ -198,9 +198,11 @@ bintray {
     publish = true
 }
 
+def ecrRepository = 'https://120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
+
 docker {
     registryCredentials {
-        url = 'https://120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
+        url = ecrRepository
     }
 }
 
@@ -238,20 +240,60 @@ createDockerfile.dependsOn syncWebAppArchive
 
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
+def ecrImageTag = "${ecrRepository}/quickprint:{$war.version}"
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
-    tag = "120983864185.dkr.ecr.ap-southeast-2.amazonaws.com/quickprint:$war.version"
+    tag = ecrImageTag
 }
 
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 
 task pushImage(type: DockerPushImage) {
     dependsOn buildImage
-    conventionMapping.imageName = { buildImage.getTag() }
+    conventionMapping.imageName = { buildImage.tag }
 }
 
 task publishImage() {
     dependsOn pushImage
     dependsOn bintrayUpload
+}
+
+task createDockerrun() {
+    file('Dockerrun.aws.json').text = """{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "${ecrImageTag}",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8080"
+    }
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": "/mnt/nfs/PDF",
+      "ContainerDirectory": "/root/PDF"
+    }
+  ],
+  "Logging": "/var/log/nginx"
+}
+"""
+}
+
+task copyEBDirForArchiving(type: Copy) {
+    dependsOn createDockerrun
+    from(".") {
+        include ".ebextensions/**"
+    }
+
+    from "Dockerrun.aws.json"
+    into "${buildDir}/toArchive"
+}
+
+task createEBArchive(type: Zip) {
+    dependsOn copyEBDirForArchiving
+    from "${buildDir}/toArchive"
+    archiveName "eb.zip"
 }

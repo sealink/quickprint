@@ -3,6 +3,7 @@
 ## Unreleased
 
 * [TT-4522] - Add ability to generate docker image and publish to ECR
+* [TT-4590] - Add elastic beanstalk deployment
 
 ## 1.0.2
 
