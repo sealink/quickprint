@@ -9,7 +9,7 @@ script:
 - "./gradlew versionDisplay"
 - "./gradlew versionFile"
 - "export $(cat build/version.properties | xargs)"
-- "./gradlew build createEBArchive"
+- "./gradlew build buildImage buildEBArchive"
 after_success:
 - "./gradlew jacocoTestReport coveralls"
 before_cache:
@@ -22,12 +22,6 @@ cache:
 before_deploy:
   - "export ELASTIC_BEANSTALK_LABEL=$VERSION_TAG"
 deploy:
-  - provider: script
-    script: "./gradlew publishImage"
-    skip_cleanup: true
-    on:
-      all_branches: true
-      tags: true
   - provider: elasticbeanstalk
     only_create_app_version: "true"
     region: "ap-southeast-2"
@@ -39,3 +33,9 @@ deploy:
     on:
       all_branches: true
       tags: true
+  - provider: script
+    script: "./gradlew publishImage"
+    skip_cleanup: true
+    on:
+      all_branches: true
+      tags: true      

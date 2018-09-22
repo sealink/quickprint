@@ -292,7 +292,7 @@ task copyEBDirForArchiving(type: Copy) {
     into "${buildDir}/toArchive"
 }
 
-task createEBArchive(type: Zip) {
+task buildEBArchive(type: Zip) {
     dependsOn copyEBDirForArchiving
     from "${buildDir}/toArchive"
     archiveName "eb.zip"
