@@ -198,11 +198,11 @@ bintray {
     publish = true
 }
 
-def ecrRepository = 'https://120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
+def ecrRepository = '120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
 
 docker {
     registryCredentials {
-        url = ecrRepository
+        url = "https://$ecrRepository"
     }
 }
 
