@@ -1,5 +1,9 @@
 # QuickPrint
 
+## Unreleased
+
+* [TT-4595] - Fix docker build
+
 ## 1.1.0
 
 * [TT-4522] - Add ability to generate docker image and publish to ECR
