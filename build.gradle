@@ -198,11 +198,11 @@ bintray {
     publish = true
 }
 
-def ecrRepository = 'https://120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
+def ecrBase = '120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
 
 docker {
     registryCredentials {
-        url = ecrRepository
+        url = "https://$ecrBase"
     }
 }
 
@@ -240,7 +240,7 @@ createDockerfile.dependsOn syncWebAppArchive
 
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
-def ecrImageTag = "${ecrRepository}/quickprint:$war.version"
+def ecrImageTag = "${ecrBase}/quickprint:$war.version"
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
     inputDir = createDockerfile.destFile.parentFile
@@ -292,7 +292,7 @@ task copyEBDirForArchiving(type: Copy) {
     into "${buildDir}/toArchive"
 }
 
-task createEBArchive(type: Zip) {
+task buildEBArchive(type: Zip) {
     dependsOn copyEBDirForArchiving
     from "${buildDir}/toArchive"
     archiveName "eb.zip"
