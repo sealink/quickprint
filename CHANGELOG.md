@@ -1,6 +1,6 @@
 # QuickPrint
 
-## Unreleased
+## 1.1.1
 
 * [TT-4595] - Fix docker build
 
