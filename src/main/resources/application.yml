@@ -1,2 +1,8 @@
 secrets:
   apiKey: ${QUICK_PRINT_API_KEY}
+server:
+  port: ${APP_PORT:8080}
+spring:
+  jackson:
+    deserialization:
+      READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE: true
