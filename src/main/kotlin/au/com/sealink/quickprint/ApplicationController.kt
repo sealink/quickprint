@@ -1,13 +1,12 @@
 package au.com.sealink.quickprint
 
 import au.com.sealink.printing.ticket_printer.*
+import au.com.sealink.printing.ticket_printer.Ticket
 import au.com.sealink.quickprint.core.PrinterRepository
-import au.com.sealink.quickprint.requests.PrintTicket
-import au.com.sealink.quickprint.requests.Response
-import au.com.sealink.quickprint.requests.toTicketElement
+import au.com.sealink.quickprint.requests.*
 import kotlinx.coroutines.experimental.async
 import org.springframework.web.bind.annotation.*
-import java.util.ResourceBundle
+import java.util.*
 
 @RestController
 class ApplicationController(private val repository: PrinterRepository) {
@@ -18,6 +17,28 @@ class ApplicationController(private val repository: PrinterRepository) {
 
     @GetMapping("/printers")
     fun printers()= repository.findAll().map { it.name }
+
+    @PostMapping("/print-receipts")
+    fun printReceipts(@RequestBody request: PrintReceipt) : Response {
+        val unsupportedTypes = EnumSet.of(ElementType.Barcode)
+        val printer = ReceiptPrinter(request.printerName)
+        val tickets = request.tickets.map { it ->
+            val ticket = Ticket()
+            ticket.addElements(
+                    it.asSequence()
+                        .filter { el -> !unsupportedTypes.contains(el.type) }
+                        .map { el -> el.toTicketElement() }
+                        .toList()
+            )
+            ticket
+        }
+
+        async {
+            printer.printTickets(tickets)
+        }
+
+        return Response()
+    }
 
     @PostMapping("/print-tickets")
     fun printTickets(@RequestBody request: PrintTicket) : Response {
@@ -30,7 +51,7 @@ class ApplicationController(private val repository: PrinterRepository) {
 
         val tickets = request.tickets.map { it ->
             val ticket = Ticket()
-            it.map { el -> el.toTicketElement() }.forEach { ticket.addElement(it) }
+            ticket.addElements(it.map { el -> el.toTicketElement() })
             ticket
         }
 

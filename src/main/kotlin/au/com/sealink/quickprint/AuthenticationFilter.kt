@@ -12,6 +12,5 @@ class AuthenticationFilter(private val apiKey: String) : OncePerRequestFilter() 
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid API Token")
         }
         filterChain.doFilter(request, response)
-
     }
 }

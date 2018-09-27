@@ -18,7 +18,7 @@ class ApplicationSecurity : WebSecurityConfigurerAdapter() {
     private lateinit var env : Environment
 
     override fun configure(http: HttpSecurity) {
-        val protectedRoutes = arrayOf("/print-tickets", "/printers")
+        val protectedRoutes = arrayOf("/print-receipts", "/print-tickets", "/printers")
 
         http.csrf().disable()
                 .cors().and()
