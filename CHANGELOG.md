@@ -1,6 +1,6 @@
 # QuickPrint
 
-## 1.2
+## 1.2.0
 
 * [TT-4614] - Add new endpoint which supports printing receipt tickets to Epson printers
 
