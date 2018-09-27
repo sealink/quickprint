@@ -20,7 +20,7 @@ class ApplicationController(private val repository: PrinterRepository) {
 
     @PostMapping("/print-receipts")
     fun printReceipts(@RequestBody request: PrintReceipt) : Response {
-        val unsupportedTypes = EnumSet.of(ElementType.Barcode, ElementType.Image)
+        val unsupportedTypes = EnumSet.of(ElementType.Barcode)
         val printer = ReceiptPrinter(request.printerName)
         val tickets = request.tickets.map { it ->
             val ticket = Ticket()

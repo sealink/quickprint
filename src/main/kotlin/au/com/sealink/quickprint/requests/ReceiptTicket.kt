@@ -34,10 +34,10 @@ fun ReceiptTicket.toTicketElement() : TicketElement {
         Alignment.Center -> element.justification = Justification.CENTRE
     }
 
-    element.value  = if (this.type == ElementType.EmptyLine) {
-        System.lineSeparator()
-    } else {
-        this.value
+    element.value = when (type) {
+        ElementType.EmptyLine -> System.lineSeparator()
+        ElementType.Image -> "imageBase64:" + this.value
+        else -> value
     }
 
     return element
