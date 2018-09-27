@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.2.70'
+		kotlinVersion = '1.2.71'
 		springBootVersion = '2.0.4.RELEASE'
 	}
 	repositories {
@@ -124,8 +124,9 @@ dependencies {
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21"
 	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	compile "org.jetbrains.kotlin:kotlin-reflect"
-    compile('com.fasterxml.jackson.module:jackson-module-kotlin')
-    compile 'au.com.sealink:printing:1.3.0'
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    compile 'au.com.sealink:printing:1.4.0'
+
     compile group: 'com.rapid7', name: 'r7insight_java', version: '1.1.39'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
 		exclude module: 'junit'
