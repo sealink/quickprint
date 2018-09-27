@@ -1,5 +1,9 @@
 # QuickPrint
 
+## Unreleased
+
+* [TT-4614] - Add new endpoint which supports printing receipt tickets to Epson printers
+
 ## 1.1.1
 
 * [TT-4595] - Fix docker build
