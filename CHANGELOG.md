@@ -3,6 +3,7 @@
 ## Unreleased
 
 * [TT-4629] - Disable images when printing receipts
+* [TT-4906] - Add support for element width and height
 
 ## 1.2.0
 
