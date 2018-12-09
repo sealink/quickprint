@@ -1,6 +1,6 @@
 # QuickPrint
 
-## Unreleased
+## 1.3.0
 
 * [TT-4629] - Disable images when printing receipts
 * [TT-4906] - Add support for element width and height
