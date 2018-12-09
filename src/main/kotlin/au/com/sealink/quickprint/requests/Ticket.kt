@@ -7,6 +7,8 @@ data class Ticket(
     @JsonProperty("type") val type: String,
     @JsonProperty("x") val x: Double,
     @JsonProperty("y") val y: Double,
+    @JsonProperty("width") val width: Int,
+    @JsonProperty("height") val height: Int,
     @JsonProperty("value") val value: String,
     @JsonProperty("key") val key: String,
     @JsonProperty("font_size") val fontSize: Double,
@@ -23,5 +25,7 @@ fun Ticket.toTicketElement() : TicketElement {
     element.value = this.value
     element.x = this.x.toInt()
     element.y = this.y.toInt()
+    element.width = this.width
+    element.height = this.height
     return element
 }
