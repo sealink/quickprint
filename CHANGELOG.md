@@ -1,5 +1,9 @@
 # QuickPrint
 
+## 1.3.1 Unreleased
+
+* [TT-4911] - Fix images when no height or width is specified
+
 ## 1.3.0
 
 * [TT-4629] - Disable images when printing receipts
