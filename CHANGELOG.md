@@ -1,6 +1,6 @@
 # QuickPrint
 
-## 1.3.1 Unreleased
+## 1.3.1
 
 * [TT-4911] - Fix images when no height or width is specified
 
