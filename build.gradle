@@ -121,7 +121,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile group: 'org.springframework.data', name: 'spring-data-commons', version: '2.1.9.RELEASE'
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.2"
 	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	compile "org.jetbrains.kotlin:kotlin-reflect"
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
