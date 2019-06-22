@@ -1,5 +1,9 @@
 # QuickPrint
 
+## Unreleased
+
+* [TT-5649] - Update to use non-experimental CoRoutines
+
 ## 1.3.1
 
 * [TT-4911] - Fix images when no height or width is specified
