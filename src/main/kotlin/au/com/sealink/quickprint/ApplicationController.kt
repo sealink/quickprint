@@ -4,8 +4,9 @@ import au.com.sealink.printing.ticket_printer.*
 import au.com.sealink.printing.ticket_printer.Ticket
 import au.com.sealink.quickprint.core.PrinterRepository
 import au.com.sealink.quickprint.requests.*
-import kotlinx.coroutines.experimental.async
 import org.springframework.web.bind.annotation.*
+import kotlinx.coroutines.*
+
 import java.util.*
 
 @RestController
@@ -22,7 +23,7 @@ class ApplicationController(private val repository: PrinterRepository) {
     fun printReceipts(@RequestBody request: PrintReceipt) : Response {
         val unsupportedTypes = EnumSet.of(ElementType.Barcode, ElementType.Image)
         val printer = ReceiptPrinter(request.printerName)
-        val tickets = request.tickets.map { it ->
+        val tickets = request.tickets.map {
             val ticket = Ticket()
             ticket.addElements(
                     it.asSequence()
@@ -33,7 +34,7 @@ class ApplicationController(private val repository: PrinterRepository) {
             ticket
         }
 
-        async {
+        GlobalScope.launch {
             printer.printTickets(tickets)
         }
 
@@ -49,13 +50,13 @@ class ApplicationController(private val repository: PrinterRepository) {
 
         printer.setTicketPageSettings(settings)
 
-        val tickets = request.tickets.map { it ->
+        val tickets = request.tickets.map {
             val ticket = Ticket()
             ticket.addElements(it.map { el -> el.toTicketElement() })
             ticket
         }
 
-        async {
+        GlobalScope.launch {
             printer.printTickets(tickets)
         }
         return Response()
