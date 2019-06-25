@@ -4,21 +4,21 @@ sudo: required
 services:
   - docker
 jdk:
-- oraclejdk8
+  - oraclejdk8
 script:
-- "./gradlew versionDisplay"
-- "./gradlew versionFile"
-- "export $(cat build/version.properties | xargs)"
-- "./gradlew build buildImage buildEBArchive"
+  - "./gradlew versionDisplay"
+  - "./gradlew versionFile"
+  - "export $(cat build/version.properties | xargs)"
+  - "./gradlew build buildImage buildEBArchive"
 after_success:
-- "./gradlew jacocoTestReport coveralls"
+  - "./gradlew jacocoTestReport coveralls"
 before_cache:
-- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-  - "$HOME/.gradle/caches/"
-  - "$HOME/.gradle/wrapper/"
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
 before_deploy:
   - "export ELASTIC_BEANSTALK_LABEL=$VERSION_TAG"
 deploy:
@@ -38,4 +38,4 @@ deploy:
     skip_cleanup: true
     on:
       all_branches: true
-      tags: true      
+      tags: true
