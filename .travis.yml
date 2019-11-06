@@ -1,8 +1,11 @@
 language: java
+dist: trusty
 install: true
 sudo: required
 services:
   - docker
+jdk:
+  - oraclejdk8
 script:
   - "./gradlew versionDisplay"
   - "./gradlew versionFile"
