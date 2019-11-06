@@ -1,5 +1,9 @@
 # QuickPrint
 
+## Unreleased
+
+* [TT-6290] - Build with trusty distro
+
 ## 1.3.1
 
 * [TT-4911] - Fix images when no height or width is specified
