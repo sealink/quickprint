@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* [TT-5649] - Update to use non-experimental CoRoutines
 * [TT-6290] - Build with trusty distro
 
 ## 1.3.1
