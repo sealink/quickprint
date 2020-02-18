@@ -18,7 +18,7 @@ plugins {
     id "maven-publish"
     id 'net.nemerosa.versioning' version '2.11.0'
     id 'jacoco'
-    id 'com.github.kt3k.coveralls' version '2.9.0'
+    id 'com.github.kt3k.coveralls' version '2.10.0'
     id 'com.bmuschko.docker-remote-api' version '3.6.1'
     id "com.patdouble.awsecr" version "0.4.0"
 }
