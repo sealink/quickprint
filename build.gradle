@@ -1,7 +1,7 @@
 buildscript {
 	ext {
 		kotlinVersion = '1.3.71'
-		springBootVersion = '2.1.9.RELEASE'
+		springBootVersion = '2.2.6.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -15,7 +15,6 @@ buildscript {
 
 plugins {
     id "com.jfrog.bintray" version "1.8.4"
-    id "maven-publish"
     id 'net.nemerosa.versioning' version '2.12.1'
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.10.1'
@@ -23,11 +22,11 @@ plugins {
     id "com.patdouble.awsecr" version "0.4.0"
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'kotlin-spring'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
+apply plugin: 'kotlin-spring'
+apply plugin: 'kotlin'
 
 jacocoTestReport {
     reports {
@@ -116,18 +115,18 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile group: 'org.springframework.data', name: 'spring-data-commons', version: '2.2.6.RELEASE'
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3-native-mt"
-	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-	compile "org.jetbrains.kotlin:kotlin-reflect"
+		compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+		compile "org.jetbrains.kotlin:kotlin-reflect"
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
     compile 'au.com.sealink:printing:1.6.0'
 
     compile group: 'com.rapid7', name: 'r7insight_java', version: '3.0.2'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
-		exclude module: 'junit'
-	}
+			exclude module: 'junit'
+		}
     testCompile("com.nhaarman:mockito-kotlin:1.6.0")
-	testImplementation('org.junit.jupiter:junit-jupiter-api')
-	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
+		testImplementation('org.junit.jupiter:junit-jupiter-api')
+		testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
@@ -152,6 +151,7 @@ def pomConfig = {
     }
 }
 
+apply plugin: 'maven-publish'
 publishing {
     publications {
         mavenPublication(MavenPublication) {
@@ -207,7 +207,7 @@ task createDockerfile(type: Dockerfile) {
     destFile = project.file('build/docker/Dockerfile')
     from 'openjdk:8-jdk'
     label(
-            'maintainer': 'john.mortlock@sealink.com.au'
+    	'maintainer': 'john.mortlock@sealink.com.au'
     )
     environmentVariable 'PRINTER_NAME', 'cups-pdf'
     volume '/root/PDF'
