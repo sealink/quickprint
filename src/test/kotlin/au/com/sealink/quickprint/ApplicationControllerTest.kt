@@ -31,7 +31,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 
 @ExtendWith(SpringExtension::class)
-@WebMvcTest(secure = false)
+@WebMvcTest
 class ApplicationControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @MockBean
@@ -52,9 +52,9 @@ class ApplicationControllerTest(@Autowired val mockMvc: MockMvc) {
 
         whenever(printerRepository.findAll()).thenReturn(listOf(printer1, printer2))
 
-        mockMvc.perform(get("/printers"))
+        mockMvc.perform(get("/printers").header("x-api-key", "TEST"))
                 .andExpect(status().isOk)
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("\$.[0]").value("Printer 1"))
                 .andExpect(jsonPath("\$.[1]").value("Printer 2"))
     }
@@ -71,6 +71,7 @@ class ApplicationControllerTest(@Autowired val mockMvc: MockMvc) {
                 ArrayList<ArrayList<Ticket>>()
                 )
         mockMvc.perform(post("/print-tickets")
+                .header("x-api-key", "TEST")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(request)))
                 .andExpect(status().isOk)
