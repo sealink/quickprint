@@ -15,7 +15,7 @@ buildscript {
 
 plugins {
     id "com.jfrog.bintray" version "1.8.5"
-    id 'net.nemerosa.versioning' version '2.13.1'
+    id 'net.nemerosa.versioning' version '2.13.2'
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.10.1'
     id 'com.bmuschko.docker-remote-api' version '3.6.1'
