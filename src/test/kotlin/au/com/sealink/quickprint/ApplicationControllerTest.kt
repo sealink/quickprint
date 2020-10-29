@@ -6,7 +6,6 @@ import au.com.sealink.quickprint.core.PrinterRepository
 import au.com.sealink.quickprint.requests.PageFormat
 import au.com.sealink.quickprint.requests.PrintTicket
 import au.com.sealink.quickprint.requests.Ticket
-import com.nhaarman.mockito_kotlin.whenever
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,6 +27,7 @@ import javax.print.attribute.PrintServiceAttribute
 import javax.print.attribute.PrintServiceAttributeSet
 import javax.print.event.PrintServiceAttributeListener
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.nhaarman.mockitokotlin2.whenever
 
 
 @ExtendWith(SpringExtension::class)

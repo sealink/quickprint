@@ -1,7 +1,7 @@
 buildscript {
 	ext {
 		kotlinVersion = '1.4.10'
-		springBootVersion = '2.2.7.RELEASE'
+		springBootVersion = '2.3.4.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -36,6 +36,8 @@ jacocoTestReport {
 }
 
 test {
+    useJUnitPlatform()
+
     testLogging {
         events "failed"
         exceptionFormat "full"
@@ -96,10 +98,6 @@ classes {
     dependsOn createProperties
 }
 
-test {
-  	useJUnitPlatform()
-}
-
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
@@ -120,12 +118,14 @@ dependencies {
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
     compile 'au.com.sealink:printing:1.6.0'
 
+
     compile group: 'com.rapid7', name: 'r7insight_java', version: '3.0.3'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
 			exclude module: 'junit'
+            exclude module: 'junit-vintage-engine'
 		}
-    testCompile("com.nhaarman:mockito-kotlin:1.6.0")
-		testImplementation('org.junit.jupiter:junit-jupiter-api')
+    testCompile("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
+		testImplementation('org.junit.jupiter:junit-jupiter-api:5.6.0')
 		testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
