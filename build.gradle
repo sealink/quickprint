@@ -1,7 +1,7 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.2.71'
-		springBootVersion = '2.1.0.RELEASE'
+		kotlinVersion = '1.4.0'
+		springBootVersion = '2.2.7.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -97,7 +97,7 @@ classes {
 }
 
 test {
-  //  useJUnitPlatform()
+  	useJUnitPlatform()
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
