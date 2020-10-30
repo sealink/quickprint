@@ -119,7 +119,7 @@ dependencies {
     compile 'au.com.sealink:printing:1.6.0'
 
 
-    compile group: 'com.rapid7', name: 'r7insight_java', version: '3.0.3'
+    compile group: 'com.rapid7', name: 'r7insight_java', version: '3.0.4'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
 			exclude module: 'junit'
             exclude module: 'junit-vintage-engine'
