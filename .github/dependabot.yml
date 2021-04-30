@@ -1,0 +1,20 @@
+version: 2
+updates:
+- package-ecosystem: gradle
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: com.bmuschko.docker-remote-api
+    versions:
+    - "> 3.6.1"
+  - dependency-name: com.patdouble.awsecr
+    versions:
+    - "> 0.4.0"
+  - dependency-name: org.jetbrains.kotlin:kotlin-allopen
+    versions:
+    - 1.4.21-2
+  - dependency-name: org.jetbrains.kotlin:kotlin-gradle-plugin
+    versions:
+    - 1.4.21-2
