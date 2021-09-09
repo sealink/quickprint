@@ -15,6 +15,7 @@ buildscript {
 
 plugins {
     id "com.jfrog.bintray" version "1.8.5"
+    id "maven-publish"
     id 'net.nemerosa.versioning' version '2.14.0'
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.11.0'
@@ -71,9 +72,17 @@ else {
 }
 
 repositories {
+    google()
     jcenter()
-    maven { url "https://dl.bintray.com/sealink/maven" }
     mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = "https://maven.pkg.github.com/sealink/ticket_printer"
+        credentials {
+            username = System.getenv("GITHUB_USERNAME")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
 }
 
 bootJar {
@@ -116,7 +125,7 @@ dependencies {
 		compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 		compile "org.jetbrains.kotlin:kotlin-reflect"
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
-    compile 'au.com.sealink:printing:1.6.0'
+    implementation 'au.com.sealink:printing:1.7.1'
 
 
     compile group: 'com.rapid7', name: 'r7insight_java', version: '3.0.7'
@@ -151,7 +160,6 @@ def pomConfig = {
     }
 }
 
-apply plugin: 'maven-publish'
 publishing {
     publications {
         mavenPublication(MavenPublication) {
@@ -171,26 +179,16 @@ publishing {
             }
         }
     }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-
-    publications = ['mavenPublication']
-    pkg {
-        repo = 'maven'
-        name = 'quickprint'
-        userOrg = 'sealink'
-        licenses = ['MIT']
-        vcsUrl = "https://github.com/sealink/quickprint.git"
-        version {
-            name = project.version
-            desc = project.version
-            released  = new Date()
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/sealink/quickprint"
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
-    publish = true
 }
 
 def ecrBase = '120983864185.dkr.ecr.ap-southeast-2.amazonaws.com'
@@ -251,7 +249,6 @@ task pushImage(type: DockerPushImage) {
 
 task publishImage() {
     dependsOn pushImage
-    dependsOn bintrayUpload
 }
 
 task createDockerrun() {

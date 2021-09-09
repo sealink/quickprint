@@ -1,6 +1,6 @@
 [![Download](https://api.bintray.com/packages/sealink/maven/quickprint/images/download.svg) ](https://bintray.com/sealink/maven/quickprint/_latestVersion)
 [![Coverage Status](https://coveralls.io/repos/github/sealink/quickprint/badge.svg?branch=master)](https://coveralls.io/github/sealink/quickprint?branch=master)
-[![Build Status](https://travis-ci.org/sealink/quickprint.svg?branch=master)](https://travis-ci.org/sealink/quickprint)
+[![Build Status](https://github.com/sealink/quickprint/actions/workflows/gradle.yml/badge.svg?branch=master)](https://github.com/sealink/quickprint/actions)
 
 Print Service is designed to be run on-premise and provides a bridge for web connected applcations
 to print to physical printers.
