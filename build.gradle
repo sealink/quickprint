@@ -120,7 +120,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile group: 'org.springframework.data', name: 'spring-data-commons', version: '2.5.1'
+    compile group: 'org.springframework.data', name: 'spring-data-commons', version: '3.0.0'
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt"
 		compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 		compile "org.jetbrains.kotlin:kotlin-reflect"
