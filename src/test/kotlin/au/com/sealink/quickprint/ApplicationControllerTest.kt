@@ -67,7 +67,7 @@ class ApplicationControllerTest(@Autowired val mockMvc: MockMvc) {
         val request = PrintTicket(
                 "TEST",
                 "printer-1",
-                PageFormat(1.0, 1.0, null),
+                PageFormat(1.0, 1.0, null, 1.3, 1.3),
                 ArrayList<ArrayList<Ticket>>()
                 )
         mockMvc.perform(post("/print-tickets")
