@@ -46,7 +46,8 @@ class ApplicationController(private val repository: PrinterRepository) {
         val printer = repository.requestPrinter(request.printerName)
         val settings = TicketPageSettings(request.pageFormat.width,
                 request.pageFormat.height,
-                request.pageFormat.margin ?: 0.0)
+                request.pageFormat.margin_x ?: 0.0,
+                request.pageFormat.margin_y ?: 0.0)
 
         printer.setTicketPageSettings(settings)
 
