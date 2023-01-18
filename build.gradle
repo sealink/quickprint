@@ -125,7 +125,7 @@ dependencies {
 		compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 		compile "org.jetbrains.kotlin:kotlin-reflect"
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
-    implementation 'au.com.sealink:printing:1.7.1'
+    implementation 'au.com.sealink:printing:1.8.0'
 
 
     compile group: 'com.rapid7', name: 'r7insight_java', version: '3.0.7'
