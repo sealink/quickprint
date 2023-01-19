@@ -1,5 +1,9 @@
 # QuickPrint
 
+## Unreleased
+
+* [TT-11531] - Migrated to using separate margin_x and margin_y params in PageFormat
+
 ## 1.3.1
 
 * [TT-4911] - Fix images when no height or width is specified
