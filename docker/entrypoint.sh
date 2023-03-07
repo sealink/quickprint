@@ -22,6 +22,6 @@ fi
 echo CUPS is ready.
 
 echo "Check if the printer exists, add it if it doesn't"
-lpstat -v "$PRINTER_NAME" &> /dev/null || lpadmin -p "$PRINTER_NAME" -v cups-pdf:/ -E -P /usr/share/ppd/cups-pdf/CUPS-PDF.ppd
+lpstat -v "$PRINTER_NAME" &> /dev/null || lpadmin -p "$PRINTER_NAME" -v cups-pdf:/ -E -P /usr/share/ppd/cups-pdf/CUPS-PDF_opt.ppd
 
 java -jar -DQUICK_PRINT_API_KEY=$API_KEY /app/quickprint.war
