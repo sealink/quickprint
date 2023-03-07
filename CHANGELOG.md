@@ -8,6 +8,7 @@
 * [TT-8218] - Update to Spring 2.3.4 and Grandle 6.7
 * [PLAT-28] - Migrate from Travis to Github Action
 * [TT-11531] - Migrated to using separate margin_x and margin_y params in PageFormat
+* [TT-11686] - Updated cups-pdf ppd path in docker/entrypoint.sh
 
 ## 1.3.1
 
