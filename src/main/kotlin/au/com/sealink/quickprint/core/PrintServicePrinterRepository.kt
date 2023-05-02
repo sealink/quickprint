@@ -1,6 +1,6 @@
 package au.com.sealink.quickprint.core
 
-import au.com.sealink.printing.ticket_printer.PrintServiceLocator
+import au.com.sealink.printing.ticketprinter.PrintServiceLocator
 import org.springframework.stereotype.Repository
 import javax.print.PrintService
 

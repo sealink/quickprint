@@ -1,7 +1,7 @@
 package au.com.sealink.quickprint
 
-import au.com.sealink.printing.ticket_printer.*
-import au.com.sealink.printing.ticket_printer.Ticket
+import au.com.sealink.printing.ticketprinter.*
+import au.com.sealink.printing.ticketprinter.Ticket
 import au.com.sealink.quickprint.core.PrinterRepository
 import au.com.sealink.quickprint.requests.*
 import org.springframework.web.bind.annotation.*

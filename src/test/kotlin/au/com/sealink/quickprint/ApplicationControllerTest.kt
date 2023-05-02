@@ -1,6 +1,6 @@
 package au.com.sealink.quickprint
 
-import au.com.sealink.printing.ticket_printer.TicketPageSettings
+import au.com.sealink.printing.ticketprinter.TicketPageSettings
 import au.com.sealink.quickprint.core.Printer
 import au.com.sealink.quickprint.core.PrinterRepository
 import au.com.sealink.quickprint.requests.PageFormat
@@ -82,7 +82,7 @@ class TestPrinter : Printer {
     override fun setTicketPageSettings(settings: TicketPageSettings) {
     }
 
-    override fun printTickets(tickets: List<au.com.sealink.printing.ticket_printer.Ticket>) {
+    override fun printTickets(tickets: List<au.com.sealink.printing.ticketprinter.Ticket>) {
     }
 }
 

@@ -1,6 +1,6 @@
 package au.com.sealink.quickprint.requests
 
-import au.com.sealink.printing.ticket_printer.TicketElement
+import au.com.sealink.printing.ticketprinter.TicketElement
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class Ticket(

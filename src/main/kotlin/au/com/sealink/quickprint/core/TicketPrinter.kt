@@ -1,8 +1,8 @@
 package au.com.sealink.quickprint.core
 
-import au.com.sealink.printing.ticket_printer.Ticket
-import au.com.sealink.printing.ticket_printer.TicketPageSettings
-import au.com.sealink.printing.ticket_printer.TicketPrinter
+import au.com.sealink.printing.ticketprinter.Ticket
+import au.com.sealink.printing.ticketprinter.TicketPageSettings
+import au.com.sealink.printing.ticketprinter.TicketPrinter
 
 class TicketPrinter(private var name: String) : Printer {
     private val mPrinter : TicketPrinter = TicketPrinter()
