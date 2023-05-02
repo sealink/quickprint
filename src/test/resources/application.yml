@@ -1,2 +1,5 @@
 secrets:
   apiKey: TEST
+rollbar:
+  accessToken: TEST
+  environment: TEST

@@ -1,5 +1,8 @@
 secrets:
   apiKey: ${QUICK_PRINT_API_KEY}
+rollbar:
+  accessToken: ${ROLLBAR_ACCESS_TOKEN}
+  environment: ${ROLLBAR_ENVIRONMENT}
 server:
   port: ${APP_PORT:8080}
 spring:

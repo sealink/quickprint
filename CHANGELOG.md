@@ -10,6 +10,7 @@
 * [TT-11531] - Migrated to using separate margin_x and margin_y params in PageFormat
 * [TT-11686] - Updated cups-pdf ppd path in docker/entrypoint.sh
 * [TF-302] - Update java version to 19 and related dependencies
+* [TF-240] - Add rollbar integration
 
 ## 1.3.1
 
