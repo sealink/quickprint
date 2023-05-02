@@ -1,38 +1,22 @@
-buildscript {
-	ext {
-		kotlinVersion = '1.4.32'
-		springBootVersion = '2.4.4'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
-	}
-}
-
 plugins {
-    id "com.jfrog.bintray" version "1.8.5"
-    id "maven-publish"
-    id 'net.nemerosa.versioning' version '2.14.0'
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.21'
+    id 'org.jetbrains.kotlin.plugin.allopen' version '1.8.21'
+    id 'war'
+    id 'maven-publish'
+    id 'net.nemerosa.versioning' version '3.0.0'
     id 'jacoco'
-    id 'com.github.kt3k.coveralls' version '2.11.0'
-    id 'com.bmuschko.docker-remote-api' version '3.6.1'
-    id "com.patdouble.awsecr" version "0.4.0"
+    id 'com.github.kt3k.coveralls' version '2.12.2'
+    id 'com.bmuschko.docker-remote-api' version '9.3.1'
+    id 'com.patdouble.awsecr' version '0.7.0'
 }
-
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'war'
-apply plugin: 'kotlin-spring'
-apply plugin: 'kotlin'
 
 jacocoTestReport {
     reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
-        html.enabled = true
+        xml.required.set(true) // coveralls plugin depends on xml format report
+        html.required.set(true)
     }
 }
 
@@ -46,17 +30,17 @@ test {
 }
 
 group = 'au.com.sealink'
-sourceCompatibility = 1.8
+sourceCompatibility = 19
 compileKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.8"
+		jvmTarget = "19"
 	}
 }
 compileTestKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.8"
+		jvmTarget = "19"
 	}
 }
 
@@ -89,10 +73,6 @@ bootJar {
     launchScript()
 }
 
-bootWar {
-    excludeDevtools = false
-}
-
 task createProperties(dependsOn: processResources) {
     doLast {
         new File("$buildDir/resources/main/version.properties").withWriter { w ->
@@ -108,7 +88,7 @@ classes {
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
+    archiveClassifier.set('sources')
     from sourceSets.main.allSource
 }
 
@@ -116,26 +96,31 @@ artifacts {
     archives sourcesJar, bootWar
 }
 
+configurations {
+    runtimeClasspath {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-devtools'
+    }
+}
+
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile "org.springframework.boot:spring-boot-starter-security"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile group: 'org.springframework.data', name: 'spring-data-commons', version: '2.5.1'
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt"
-		compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-		compile "org.jetbrains.kotlin:kotlin-reflect"
-    compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
-    implementation 'au.com.sealink:printing:1.8.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation group: 'org.springframework.data', name: 'spring-data-commons', version: '2.5.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt"
+		implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+		implementation "org.jetbrains.kotlin:kotlin-reflect"
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    implementation 'au.com.sealink:printing:1.9.0'
 
 
-    compile group: 'com.rapid7', name: 'r7insight_java', version: '3.0.7'
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
+    implementation group: 'com.rapid7', name: 'r7insight_java', version: '3.0.7'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
 			exclude module: 'junit'
             exclude module: 'junit-vintage-engine'
 		}
-    testCompile("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
-		testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.1')
-		testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+		testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
@@ -164,9 +149,7 @@ publishing {
     publications {
         mavenPublication(MavenPublication) {
             from components.web
-            artifact sourcesJar {
-                classifier "sources"
-            }
+            artifact sourcesJar
             groupId 'au.com.sealink'
             artifactId 'quickprint'
             version project.version
@@ -202,8 +185,7 @@ docker {
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 task createDockerfile(type: Dockerfile) {
-    destFile = project.file('build/docker/Dockerfile')
-    from 'openjdk:8-jdk'
+    from 'openjdk:19-jdk-buster'
     label(
     	'maintainer': 'john.mortlock@sealink.com.au'
     )
@@ -211,7 +193,7 @@ task createDockerfile(type: Dockerfile) {
     volume '/root/PDF'
     runCommand 'apt-get update && apt-get -y install cups-pdf cups-bsd && apt-get clean'
     copyFile 'cups-pdf.conf', '/etc/cups/cups-pdf.conf'
-    copyFile war.archiveName, '/app/quickprint.war'
+    copyFile war.archiveFileName.get(), '/app/quickprint.war'
     copyFile 'entrypoint.sh', '/app/entrypoint.sh'
     exposePort 8080
     entryPoint '/app/entrypoint.sh'
@@ -220,31 +202,31 @@ task createDockerfile(type: Dockerfile) {
 task syncWebAppArchive(type: Sync) {
     dependsOn assemble
     from war.archivePath
-    into createDockerfile.destFile.parentFile
+    into createDockerfile.getDestDir()
 
     from project.file('docker/entrypoint.sh')
-    into createDockerfile.destFile.parentFile
+    into createDockerfile.getDestDir()
 
     from project.file('docker/cups-pdf.conf')
-    into createDockerfile.destFile.parentFile
+    into createDockerfile.getDestDir()
 }
 
 createDockerfile.dependsOn syncWebAppArchive
 
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
-def ecrImageTag = "${ecrBase}/quickprint:$war.version"
+def ecrImageTag = "${ecrBase}/quickprint:${version}"
 task buildImage(type: DockerBuildImage) {
     dependsOn createDockerfile
-    inputDir = createDockerfile.destFile.parentFile
-    tag = ecrImageTag
+    inputDir = createDockerfile.getDestDir()
+    images.add(ecrImageTag)
 }
 
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 
 task pushImage(type: DockerPushImage) {
     dependsOn buildImage
-    conventionMapping.imageName = { buildImage.tag }
+    getImages().add(ecrImageTag)
 }
 
 task publishImage() {
@@ -287,5 +269,5 @@ task copyEBDirForArchiving(type: Copy) {
 task buildEBArchive(type: Zip) {
     dependsOn copyEBDirForArchiving
     from "${buildDir}/toArchive"
-    archiveName "eb.zip"
+    archiveFileName.set('eb.zip')
 }

@@ -1,7 +1,7 @@
 package au.com.sealink.quickprint.requests
 
-import au.com.sealink.printing.ticket_printer.Justification
-import au.com.sealink.printing.ticket_printer.TicketElement
+import au.com.sealink.printing.ticketprinter.Justification
+import au.com.sealink.printing.ticketprinter.TicketElement
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class ReceiptTicket(
@@ -21,10 +21,10 @@ fun ReceiptTicket.toTicketElement() : TicketElement {
     }
 
     when (this.underline ?: Underline.None) {
-        Underline.Unknown -> element.underline = au.com.sealink.printing.ticket_printer.Underline.None
-        Underline.None -> element.underline = au.com.sealink.printing.ticket_printer.Underline.None
-        Underline.Single -> element.underline = au.com.sealink.printing.ticket_printer.Underline.Single
-        Underline.Double -> element.underline = au.com.sealink.printing.ticket_printer.Underline.Double
+        Underline.Unknown -> element.underline = au.com.sealink.printing.ticketprinter.Underline.None
+        Underline.None -> element.underline = au.com.sealink.printing.ticketprinter.Underline.None
+        Underline.Single -> element.underline = au.com.sealink.printing.ticketprinter.Underline.Single
+        Underline.Double -> element.underline = au.com.sealink.printing.ticketprinter.Underline.Double
     }
 
     when (this.alignment ?: Alignment.Left) {

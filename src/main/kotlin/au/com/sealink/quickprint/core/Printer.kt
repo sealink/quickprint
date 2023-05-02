@@ -1,7 +1,7 @@
 package au.com.sealink.quickprint.core
 
-import au.com.sealink.printing.ticket_printer.Ticket
-import au.com.sealink.printing.ticket_printer.TicketPageSettings
+import au.com.sealink.printing.ticketprinter.Ticket
+import au.com.sealink.printing.ticketprinter.TicketPageSettings
 
 interface Printer {
     fun setTicketPageSettings(settings: TicketPageSettings)
