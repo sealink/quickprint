@@ -112,7 +112,7 @@ dependencies {
 		implementation "org.jetbrains.kotlin:kotlin-reflect"
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'au.com.sealink:printing:1.9.0'
-
+    implementation('com.rollbar:rollbar-spring-boot-webmvc:1.8.1')
 
     implementation group: 'com.rapid7', name: 'r7insight_java', version: '3.0.7'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

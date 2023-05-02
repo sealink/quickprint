@@ -4,6 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.boot.builder.SpringApplicationBuilder
+import org.springframework.stereotype.Component
+import org.springframework.beans.factory.annotation.Autowired
 
 @SpringBootApplication
 class QuickPrintApplication : SpringBootServletInitializer() {

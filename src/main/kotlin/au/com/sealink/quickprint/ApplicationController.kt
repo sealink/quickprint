@@ -5,6 +5,7 @@ import au.com.sealink.printing.ticketprinter.Ticket
 import au.com.sealink.quickprint.core.PrinterRepository
 import au.com.sealink.quickprint.requests.*
 import org.springframework.web.bind.annotation.*
+import org.springframework.http.MediaType
 import kotlinx.coroutines.*
 
 import java.util.*
@@ -13,7 +14,7 @@ import java.util.*
 class ApplicationController(private val repository: PrinterRepository) {
     private val rb = ResourceBundle.getBundle("version")
 
-    @GetMapping("/")
+    @GetMapping("/", produces = [MediaType.TEXT_PLAIN_VALUE + ";charset=UTF-8"])
     fun index() = rb.getString("version")
 
     @GetMapping("/printers")
