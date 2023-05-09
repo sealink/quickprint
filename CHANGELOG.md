@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.5.0
+
 * [TT-5649] - Update to use non-experimental CoRoutines
 * [TT-6290] - Build with openjdk8
 * [TT-7089] - Update to Spring 2.2.6 and Gradle 4.10.2
