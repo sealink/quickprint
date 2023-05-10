@@ -193,7 +193,7 @@ task createDockerfile(type: Dockerfile) {
     volume '/root/PDF'
     runCommand 'apt-get update && apt-get -y install cups-pdf cups-bsd && apt-get clean'
     copyFile 'cups-pdf.conf', '/etc/cups/cups-pdf.conf'
-    copyFile war.archiveFileName.get(), '/app/quickprint.war'
+    copyFile bootWar.archiveFileName.get(), '/app/quickprint.war'
     copyFile 'entrypoint.sh', '/app/entrypoint.sh'
     exposePort 8080
     entryPoint '/app/entrypoint.sh'
@@ -201,7 +201,7 @@ task createDockerfile(type: Dockerfile) {
 
 task syncWebAppArchive(type: Sync) {
     dependsOn assemble
-    from war.archivePath
+    from bootWar.archivePath
     into createDockerfile.getDestDir()
 
     from project.file('docker/entrypoint.sh')
