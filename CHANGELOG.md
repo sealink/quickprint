@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* [TF-342] Add eb environment name to github action
+
 ## 1.5.0
 
 * [TT-5649] - Update to use non-experimental CoRoutines
