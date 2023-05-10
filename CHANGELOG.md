@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.5.1
+
 * [TF-342] Add eb environment name to github action
 
 ## 1.5.0
