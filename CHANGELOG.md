@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.5.2
+
 * [TF-346] Ensure docker file uses the correct war file
 
 ## 1.5.1
