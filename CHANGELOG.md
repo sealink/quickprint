@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 1.5.2
+
+* [TF-346] Ensure docker file uses the correct war file
+
+## 1.5.1
+
+* [TF-342] Add eb environment name to github action
+
+## 1.5.0
+
 * [TT-5649] - Update to use non-experimental CoRoutines
 * [TT-6290] - Build with openjdk8
 * [TT-7089] - Update to Spring 2.2.6 and Gradle 4.10.2
@@ -11,7 +21,7 @@
 * [TT-11686] - Updated cups-pdf ppd path in docker/entrypoint.sh
 * [TF-302] - Update java version to 19 and related dependencies
 * [TF-240] - Add rollbar integration
-* [Tf0303] - Update gradle wrapper
+* [TF-303] - Update gradle wrapper
 
 ## 1.3.1
 
