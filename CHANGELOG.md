@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* [TF-392] Update readme and publish artifacts to github packages
+
 ## 1.5.2
 
 * [TF-346] Ensure docker file uses the correct war file
