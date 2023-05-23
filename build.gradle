@@ -150,6 +150,8 @@ publishing {
         mavenPublication(MavenPublication) {
             from components.web
             artifact sourcesJar
+            artifact bootJar
+            artifact bootWar
             groupId 'au.com.sealink'
             artifactId 'quickprint'
             version project.version
