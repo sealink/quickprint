@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.5.3
+
 * [TF-392] Update readme and publish artifacts to github packages
 
 ## 1.5.2
