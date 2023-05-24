@@ -16,7 +16,7 @@ to print to physical printers.
 For general development you are best to start the server via gradle
 
 ```
-QUICK_PRINT_API_KEY=123 ./gradlew bootrun
+QUICK_PRINT_API_KEY=123 ROLLBAR_ACCESS_TOKEN=123./gradlew bootrun
 ```
 
 The build will also produce both a WAR and standalone executable JAR file.
@@ -25,7 +25,7 @@ The WAR can be deployed to an application server such as TomCat, the JAR file ca
 the following command.
 
 ```
-java -DQUICK_PRINT_API_KEY=123  -jar build/libs/quickprint-{version}.jar
+java -DQUICK_PRINT_API_KEY=123 -DROLLBAR_ACCESS_TOKEN=123  -jar build/libs/quickprint-{version}.jar
 ```
 
 #### Running (Docker)
@@ -97,6 +97,25 @@ git push origin master --tags
 ```
 
 A point release would simply be a tag on this branch and you would follow the previous procedure.
+
+#### Run on Windows
+
+You can register this project as a service on Windows using the following command by using WinSW.
+You will need a XML file that contains the configuration for the service, an example can be found on the below link.
+
+```
+quickprint.exe install
+```
+
+Then you can run the service using the following command.
+
+```
+quickprint.exe start
+```
+
+For more information on WinSW please see the following link.
+
+https://github.com/winsw/winsw
 
 #### Project Builds and Structure
 
