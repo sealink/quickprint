@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* [TF-470] Update mount point to be the sftp server
 ## 1.5.3
 
 * [TF-392] Update readme and publish artifacts to github packages
