@@ -1,6 +1,6 @@
 # QuickPrint
 
-## Unreleased
+## 1.6.1
 
 * [TF-470] Update nfs mount config
 
