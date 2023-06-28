@@ -9,3 +9,23 @@ spring:
   jackson:
     deserialization:
       READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE: true
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+            HandlerMapping: DEBUG
+            HandlerExecutionChain: DEBUG
+            DefaultHandlerExceptionResolver: DEBUG
+            HttpLogging: DEBUG
+            RequestMappingHandlerMapping: DEBUG
+            RequestMappingHandlerAdapter: DEBUG
+      au:
+        com:
+          quickprint:
+            controller:
+              PrintController: DEBUG
+            service:
+              PrintService: DEBUG

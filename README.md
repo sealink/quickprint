@@ -16,7 +16,7 @@ to print to physical printers.
 For general development you are best to start the server via gradle
 
 ```
-QUICK_PRINT_API_KEY=123 ROLLBAR_ACCESS_TOKEN=123./gradlew bootrun
+QUICK_PRINT_API_KEY=123 ROLLBAR_ACCESS_TOKEN=123 ./gradlew bootrun
 ```
 
 The build will also produce both a WAR and standalone executable JAR file.
