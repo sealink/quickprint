@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* [TF-470] Update nfs mount config
+
 ## 1.6.0
 
 * [TF-470] Update mount point to be the sftp server
