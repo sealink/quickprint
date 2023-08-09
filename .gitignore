@@ -12,10 +12,11 @@
 *.class
 
 # Generated files
-bin/
+bin/*
 gen/
 out/
 Dockerrun.aws.json
+!bin/remount_sftp.sh
 
 # Gradle files
 .gradle/
