@@ -15,4 +15,8 @@ else
     rm /tmp/credentials
     
     echo "Mounting complete."
+
+    echo "Reboot docker now..."
+    sudo service docker restart
+    echo "Docker has been restarted."
 fi
