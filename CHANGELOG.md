@@ -3,6 +3,7 @@
 ## Unreleased
 
 * [TF-695] Fix nfs-mount config script
+* [TF-704] Add run-on-startup script
 
 ## 1.6.1
 
