@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.6.2
+
 * [TF-695] Fix nfs-mount config script
 * [TF-704] Add run-on-startup script
 * [TBAU-880] Update epel link in nfs mount script
