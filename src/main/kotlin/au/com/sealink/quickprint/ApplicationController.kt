@@ -7,6 +7,7 @@ import au.com.sealink.quickprint.requests.*
 import org.springframework.web.bind.annotation.*
 import org.springframework.http.MediaType
 import kotlinx.coroutines.*
+import java.time.LocalDateTime
 
 import java.util.*
 
@@ -22,6 +23,7 @@ class ApplicationController(private val repository: PrinterRepository) {
 
     @PostMapping("/print-receipts")
     fun printReceipts(@RequestBody request: PrintReceipt) : Response {
+        System.err.println("[${LocalDateTime.now()}] RECEIPTS: printer='${request.printerName}', tickets=${request.tickets.size}")
         val unsupportedTypes = EnumSet.of(ElementType.Barcode, ElementType.Image)
         val printer = ReceiptPrinter(request.printerName)
         val tickets = request.tickets.map {
@@ -36,7 +38,13 @@ class ApplicationController(private val repository: PrinterRepository) {
         }
 
         GlobalScope.launch {
-            printer.printTickets(tickets)
+            try {
+                printer.printTickets(tickets)
+                System.err.println("[${LocalDateTime.now()}] RECEIPTS SUCCESS: printer='${request.printerName}'")
+            } catch (e: Exception) {
+                System.err.println("[${LocalDateTime.now()}] RECEIPTS FAILED: printer='${request.printerName}', error=${e.javaClass.name}: ${e.message}")
+                e.printStackTrace()
+            }
         }
 
         return Response()
@@ -44,6 +52,7 @@ class ApplicationController(private val repository: PrinterRepository) {
 
     @PostMapping("/print-tickets")
     fun printTickets(@RequestBody request: PrintTicket) : Response {
+        System.err.println("[${LocalDateTime.now()}] TICKETS: printer='${request.printerName}', tickets=${request.tickets.size}, format=${request.pageFormat.width}x${request.pageFormat.height}")
         val printer = repository.requestPrinter(request.printerName)
         val settings = TicketPageSettings(request.pageFormat.width,
                 request.pageFormat.height,
@@ -59,7 +68,13 @@ class ApplicationController(private val repository: PrinterRepository) {
         }
 
         GlobalScope.launch {
-            printer.printTickets(tickets)
+            try {
+                printer.printTickets(tickets)
+                System.err.println("[${LocalDateTime.now()}] TICKETS SUCCESS: printer='${request.printerName}'")
+            } catch (e: Exception) {
+                System.err.println("[${LocalDateTime.now()}] TICKETS FAILED: printer='${request.printerName}', error=${e.javaClass.name}: ${e.message}")
+                e.printStackTrace()
+            }
         }
         return Response()
     }

@@ -187,7 +187,7 @@ docker {
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 task createDockerfile(type: Dockerfile) {
-    from 'openjdk:19-jdk-buster'
+    from 'eclipse-temurin:19-jdk'
     label(
     	'maintainer': 'john.mortlock@sealink.com.au'
     )
