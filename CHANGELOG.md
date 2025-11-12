@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.7.0
+
+* Add additional logging around known spot of errors to try and gather more info
+
 ## 1.6.2
 
 * [TF-695] Fix nfs-mount config script
